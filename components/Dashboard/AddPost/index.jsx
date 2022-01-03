@@ -12,7 +12,7 @@ const initialState = {
 	description: '',
 	image_link: '',
 	upload_img: '',
-	author_name: 'အမည်မသိ',
+	author_name: 'PDF',
 }
 
 /* Client rendering */
@@ -127,6 +127,7 @@ export default function AddPost() {
 							variant='outlined'
 							value={form.author_name}
 							onChange={handleChange('author_name', form, setForm)}
+							disabled
 						/>
 						<Button type='submit' variant='contained' fullWidth sx={{ mt: 2 }}>
 							Submit
