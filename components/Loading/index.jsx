@@ -1,14 +1,25 @@
 import { Box, Typography } from '@mui/material'
 import CircularProgress from '@mui/material/CircularProgress'
+import Head from 'next/head'
 
 export default function Loading() {
 	return (
-		<Box sx={styles.root}>
-			<Typography component='h5' variant='h5' textAlign={'center'} gutterBottom>
-				Wait for a while...
-			</Typography>
-			<CircularProgress size={30} color='info' />
-		</Box>
+		<>
+			<Head>
+				<title>Wait for a while...</title>
+			</Head>
+			<Box sx={styles.root}>
+				<Typography
+					component='h5'
+					variant='h5'
+					textAlign={'center'}
+					gutterBottom
+				>
+					Wait for a while...
+				</Typography>
+				<CircularProgress size={30} color='info' />
+			</Box>
+		</>
 	)
 }
 

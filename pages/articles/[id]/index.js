@@ -19,12 +19,33 @@ import ArrowBackTwoToneIcon from '@mui/icons-material/ArrowBackTwoTone'
 import HistoryEduTwoToneIcon from '@mui/icons-material/HistoryEduTwoTone'
 import AccessTimeFilledTwoToneIcon from '@mui/icons-material/AccessTimeFilledTwoTone'
 import moment from 'moment'
+import { useSession } from 'next-auth/react'
+import { reloadPage } from '@helper/index'
 
 export default function Articles({ result }) {
 	const { replace } = useRouter()
 
-	const { title, description, image_link, upload_img, author_name, createdAt } =
-		result
+	const { data: session } = useSession()
+
+	const {
+		_id,
+		title,
+		description,
+		image_link,
+		upload_img,
+		author_name,
+		createdAt,
+	} = result
+
+	// click to delete post
+	async function deletePost() {
+		const apiUrl = process.env.crudApi
+
+		await axios.delete(`${apiUrl}/posts/${_id}`)
+		console.log('Deleted', _id)
+		alert(`Successfully deleted for this id: ${_id}`)
+		reloadPage()
+	}
 
 	// render html output
 	function markup() {
@@ -54,7 +75,7 @@ export default function Articles({ result }) {
 							component='img'
 							image={!image_link ? upload_img : image_link}
 							width={'100%'}
-							height={300}
+							height={350}
 						/>
 					</CardActionArea>
 					<CardContent>
@@ -83,20 +104,26 @@ export default function Articles({ result }) {
 						>
 							Go back
 						</Button>
-						{/* <Button
-							size='small'
-							color='warning'
-							startIcon={<EditTwoToneIcon />}
-						>
-							Edit
-						</Button>
-						<Button
-							size='small'
-							color='error'
-							startIcon={<DeleteOutlineTwoToneIcon />}
-						>
-							Delete
-						</Button> */}
+						{session && (
+							<>
+								<Button
+									size='small'
+									color='warning'
+									startIcon={<EditTwoToneIcon />}
+									onClick={() => replace(`/articles/${_id}/edit`)}
+								>
+									Edit
+								</Button>
+								<Button
+									size='small'
+									color='error'
+									startIcon={<DeleteOutlineTwoToneIcon />}
+									onClick={deletePost}
+								>
+									Delete
+								</Button>
+							</>
+						)}
 					</CardActions>
 				</Card>
 			</Container>

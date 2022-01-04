@@ -43,7 +43,7 @@ export default function ArticleLists({ data, length }) {
 										component='p'
 										sx={{ fontSize: '0.8rem' }}
 									>
-										ဆက်ဖတ်ရန် နှိပ်ပါ
+										ဆက်ဖတ်ရန် 👆🏻
 									</Typography>
 								</CardContent>
 							</CardActionArea>

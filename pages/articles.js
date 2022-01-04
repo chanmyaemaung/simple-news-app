@@ -1,20 +1,34 @@
 import MainLayout from '@components/MainLayout'
 import axios from 'axios'
 import ArticlesLists from '@components/Articles/ArticlesLists'
-import { Box, Button, Grid, AppBar, Toolbar, Typography } from '@mui/material'
+import {
+	Box,
+	Grid,
+	AppBar,
+	Toolbar,
+	Typography,
+	IconButton,
+	Button,
+} from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 
 import SearchIcon from '@mui/icons-material/Search'
 import { Search, SearchIconWrapper, StyledInputBase } from '@hooks/withSearch'
 import ArticleSkeleton from '@components/Articles/ArticleSkeleton'
-import DashboardIcon from '@mui/icons-material/Dashboard'
-import { server } from '@config/index'
+import { useSession, signOut } from 'next-auth/react'
+import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone'
+import DashboardCustomizeTwoToneIcon from '@mui/icons-material/DashboardCustomizeTwoTone'
 
 // * Client Side Rendering
 export default function Articles() {
 	const [articles, setArticles] = useState([])
 	const [search, setSearch] = useState('')
+
+	// * get session info from next auth
+	const { data: session } = useSession()
+
+	const { push } = useRouter()
 
 	// * Fetching and Component Did Mount
 	useEffect(() => {
@@ -65,6 +79,13 @@ export default function Articles() {
 								onChange={handleSearch}
 							/>
 						</Search>
+						{session && (
+							<>
+								<IconButton onClick={() => signOut()}>
+									<LogoutTwoToneIcon />
+								</IconButton>
+							</>
+						)}
 					</Toolbar>
 				</AppBar>
 			</Box>
@@ -78,16 +99,20 @@ export default function Articles() {
 					{/* If there is no article yet then show Skeleton Loading */}
 					{!articles.length && <ArticleSkeleton />}
 				</Grid>
-				{/* <Button
-					startIcon={<DashboardIcon />}
-					onClick={() => router.push('/dashboard')}
-					variant='contained'
-					color='warning'
-					fullWidth
-					sx={{ mt: 2 }}
-				>
-					Go to Dashboard
-				</Button> */}
+				{session && (
+					<>
+						<Button
+							startIcon={<DashboardCustomizeTwoToneIcon />}
+							onClick={() => push('/dashboard')}
+							variant='contained'
+							color='warning'
+							fullWidth
+							sx={{ mt: 2 }}
+						>
+							Go to Dashboard
+						</Button>
+					</>
+				)}
 			</Box>
 		</MainLayout>
 	)

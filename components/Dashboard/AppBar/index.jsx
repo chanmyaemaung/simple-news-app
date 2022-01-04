@@ -8,6 +8,7 @@ import {
 	Toolbar,
 	Typography,
 	Box,
+	Avatar,
 } from '@mui/material'
 import { root, right } from '../style'
 import DashboardDrawer from './DashboardDrawer'
@@ -17,10 +18,14 @@ import { reloadPage } from '@helper/index'
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye'
 import DashboardIcon from '@mui/icons-material/Dashboard'
 import RefreshTwoToneIcon from '@mui/icons-material/RefreshTwoTone'
+import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone'
+import { useSession, signOut } from 'next-auth/react'
 
 // * ___main_appbar_function___
 export default function DashboardAppBar(props) {
-	const router = useRouter()
+	const { push } = useRouter()
+
+	const { data: session } = useSession()
 
 	return (
 		<>
@@ -36,16 +41,16 @@ export default function DashboardAppBar(props) {
 							</Typography>
 							<Box sx={right}>
 								{/* Add Post */}
-								<IconButton onClick={() => router.push('/dashboard')}>
+								<IconButton onClick={() => push('/dashboard')}>
 									<DashboardIcon />
 								</IconButton>
 								{/* Add Post */}
-								<IconButton onClick={() => router.push('/dashboard/add')}>
+								<IconButton onClick={() => push('/dashboard/add')}>
 									<PostAddIcon />
 								</IconButton>
 								{/* See All Articles */}
 								<IconButton
-									onClick={() => router.push('/articles')}
+									onClick={() => push('/articles')}
 									sx={{ ml: 1 }}
 									color='inherit'
 								>
@@ -55,6 +60,14 @@ export default function DashboardAppBar(props) {
 								<IconButton onClick={() => reloadPage()}>
 									<RefreshTwoToneIcon />
 								</IconButton>
+								{/* Sign Out */}
+								{session && (
+									<>
+										<IconButton onClick={() => signOut()}>
+											<LogoutTwoToneIcon />
+										</IconButton>
+									</>
+								)}
 							</Box>
 						</Box>
 					</Toolbar>

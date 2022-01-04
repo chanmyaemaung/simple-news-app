@@ -128,6 +128,15 @@ export default function EditPost({ posts }) {
 						<Button type='submit' variant='contained' fullWidth sx={{ mt: 2 }}>
 							Submit
 						</Button>
+						<Button
+							onClick={() => replace('/articles')}
+							type='submit'
+							variant='outlined'
+							fullWidth
+							sx={{ mt: 2 }}
+						>
+							Go Back
+						</Button>
 					</Box>
 				</Paper>
 			</Container>

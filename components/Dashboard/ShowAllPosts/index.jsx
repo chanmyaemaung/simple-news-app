@@ -13,6 +13,7 @@ import { useEffect, useState } from 'react'
 import { UseApi } from '@hooks/useApi'
 import axios from 'axios'
 import { reloadPage } from '@helper/index'
+import { useSession, signOut } from 'next-auth/react'
 
 export default function ShowAllPosts() {
 	const [articles, setArticles] = useState([])
@@ -36,73 +37,94 @@ export default function ShowAllPosts() {
 		}
 	})
 
+	const { data: session } = useSession()
+
+	const image = session?.user?.image
+	const username = session?.user?.name
+
 	return (
-		<TableContainer component={Paper}>
-			<Table sx={{ minWidth: 650 }} aria-label='caption table'>
-				<caption>
-					Show all the articles and manage it as you like to do.
-				</caption>
-				<TableHead>
-					<TableRow>
-						<TableCell>Avatar</TableCell>
-						<TableCell align='center'>Title</TableCell>
-						<TableCell align='center'>Action</TableCell>
-					</TableRow>
-				</TableHead>
-				<TableBody>
-					{rowData.map(({ id, picture, title }) => {
-						// click to view post
-						function viewPost() {
-							window.location.href = `/articles/${id}`
-							console.log('You clicked to view post: ', id)
-						}
-						// click to edit post
-						function editPost() {
-							console.log('Edited', id)
-							window.location.href = `/articles/${id}/edit`
-						}
+		<>
+			<Box
+				sx={{
+					display: 'flex',
+					justifyContent: 'space-between',
+					alignItems: 'center',
+					px: 1,
+					mb: 1,
+				}}
+			>
+				<IconButton title="Click to Log Out" onClick={() => signOut()}>
+					<Avatar src={image} />
+				</IconButton>
+				<Typography component='h3' variant='h5' color="#ff0000">{username}</Typography>
+			</Box>
+			<TableContainer component={Paper}>
+				<Table sx={{ minWidth: 650 }} aria-label='caption table'>
+					<caption>
+						Show all the articles and manage it as you like to do.
+					</caption>
+					<TableHead>
+						<TableRow>
+							<TableCell>Avatar</TableCell>
+							<TableCell align='center'>Title</TableCell>
+							<TableCell align='center'>Action</TableCell>
+						</TableRow>
+					</TableHead>
+					<TableBody>
+						{rowData.map(({ id, picture, title }) => {
+							// click to view post
+							function viewPost() {
+								window.location.href = `/articles/${id}`
+								console.log('You clicked to view post: ', id)
+							}
+							// click to edit post
+							function editPost() {
+								console.log('Edited', id)
+								window.location.href = `/articles/${id}/edit`
+							}
 
-						// click to delete post
-						async function deletePost() {
-							const apiUrl = process.env.crudApi
+							// click to delete post
+							async function deletePost() {
+								const apiUrl = process.env.crudApi
 
-							await axios.delete(`${apiUrl}/posts/${id}`)
-							console.log('Deleted', id)
-							alert(`Successfully deleted for this id: ${id}`)
-							reloadPage()
-						}
+								await axios.delete(`${apiUrl}/posts/${id}`)
+								console.log('Deleted', id)
+								alert(`Successfully deleted for this id: ${id}`)
+								reloadPage()
+							}
 
-						return (
-							<TableRow key={id}>
-								<TableCell component='th' scope='row'>
-									<IconButton>
-										<Avatar src={picture} />
-									</IconButton>
-								</TableCell>
-								<TableCell align='center'>
-									<Typography fontSize={'0.8rem'} noWrap={true}>
-										{title.slice(0, 30)}
-									</Typography>
-								</TableCell>
-								<TableCell align='center'>
-									<Box sx={{ actionsBtn }}>
-										<IconButton onClick={() => editPost()} color='warning'>
-											<EditTwoToneIcon />
+							return (
+								<TableRow key={id}>
+									<TableCell component='th' scope='row'>
+										<IconButton>
+											<Avatar src={picture} />
 										</IconButton>
-										<IconButton onClick={() => deletePost()} color='error'>
-											<DeleteOutlineTwoToneIcon />
-										</IconButton>
-										<IconButton onClick={() => viewPost()} color='info'>
-											<VisibilityTwoToneIcon />
-										</IconButton>
-									</Box>
-								</TableCell>
-							</TableRow>
-						)
-					})}
-				</TableBody>
-			</Table>
-		</TableContainer>
+									</TableCell>
+									<TableCell align='center'>
+										<Typography fontSize={'0.8rem'} noWrap={true}>
+											{title.slice(0, 30)}
+										</Typography>
+									</TableCell>
+									<TableCell align='center'>
+										<Box sx={{ actionsBtn }}>
+											<IconButton onClick={() => editPost()} color='warning'>
+												<EditTwoToneIcon />
+											</IconButton>
+											<IconButton onClick={() => deletePost()} color='error'>
+												<DeleteOutlineTwoToneIcon />
+											</IconButton>
+											<IconButton onClick={() => viewPost()} color='info'>
+												<VisibilityTwoToneIcon />
+											</IconButton>
+										</Box>
+									</TableCell>
+								</TableRow>
+							)
+						})}
+					</TableBody>
+				</Table>
+			</TableContainer>
+		</>
 	)
 }
 
