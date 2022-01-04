@@ -6,7 +6,7 @@ export default function Loading() {
 	return (
 		<>
 			<Head>
-				<title>Wait for a while...</title>
+				<title>Processing...</title>
 			</Head>
 			<Box sx={styles.root}>
 				<Typography
