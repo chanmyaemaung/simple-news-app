@@ -10,7 +10,5 @@ export default NextAuth({
 			clientId: process.env.googleClientId,
 			clientSecret: process.env.googleClientSecret,
 		}),
-	],
-	// SQL or MongoDB database (or leave empty)
-	database: process.env.DATABASE_URL,
+	]
 })
