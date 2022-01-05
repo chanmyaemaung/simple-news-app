@@ -9,7 +9,7 @@ export default function AdsBanner() {
 
 	return (
 		<Box sx={{ width: '100%', cursor: 'pointer', p: 1, mr: -1.3 }}>
-			<a href={appLink} target='_blank'>
+			<a href={appLink} target='_blank' rel='noreferrer'>
 				<Image
 					src={sponsorImage}
 					alt='Ads banner'
