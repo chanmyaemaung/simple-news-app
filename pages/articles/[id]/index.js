@@ -19,13 +19,14 @@ import ArrowBackTwoToneIcon from '@mui/icons-material/ArrowBackTwoTone'
 import HistoryEduTwoToneIcon from '@mui/icons-material/HistoryEduTwoTone'
 import AccessTimeFilledTwoToneIcon from '@mui/icons-material/AccessTimeFilledTwoTone'
 import moment from 'moment'
-import { useSession } from 'next-auth/react'
 import { reloadPage } from '@helper/index'
+import { useGlobalContext } from '@context/authContext'
 
 export default function Articles({ result }) {
 	const { replace } = useRouter()
 
-	const { data: session } = useSession()
+	// retrieve data from context
+	const { currentUser } = useGlobalContext()
 
 	const {
 		_id,
@@ -104,7 +105,7 @@ export default function Articles({ result }) {
 						>
 							Go back
 						</Button>
-						{session && (
+						{currentUser && (
 							<>
 								<Button
 									size='small'

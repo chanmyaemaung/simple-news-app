@@ -8,7 +8,6 @@ import {
 	Toolbar,
 	Typography,
 	Box,
-	Avatar,
 } from '@mui/material'
 import { root, right } from '../style'
 import DashboardDrawer from './DashboardDrawer'
@@ -19,13 +18,14 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye'
 import DashboardIcon from '@mui/icons-material/Dashboard'
 import RefreshTwoToneIcon from '@mui/icons-material/RefreshTwoTone'
 import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone'
-import { useSession, signOut } from 'next-auth/react'
+import { useGlobalContext } from '@context/authContext'
 
 // * ___main_appbar_function___
 export default function DashboardAppBar(props) {
 	const { push } = useRouter()
 
-	const { data: session } = useSession()
+	// from context
+	const { logOut, currentUser } = useGlobalContext()
 
 	return (
 		<>
@@ -61,9 +61,9 @@ export default function DashboardAppBar(props) {
 									<RefreshTwoToneIcon />
 								</IconButton>
 								{/* Sign Out */}
-								{session && (
+								{currentUser && (
 									<>
-										<IconButton onClick={() => signOut()}>
+										<IconButton onClick={logOut}>
 											<LogoutTwoToneIcon />
 										</IconButton>
 									</>

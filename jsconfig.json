@@ -8,6 +8,8 @@
 			"@config/*": ["config/*"],
 			"@models/*": ["models/*"],
 			"@utils/*": ["utils/*"],
+			"@libs/*": ["libs/*"],
+			"@context/*": ["context/*"],
 		}
 	}
 }

@@ -9,14 +9,22 @@ import { Avatar, IconButton, Typography, Box } from '@mui/material'
 import DeleteOutlineTwoToneIcon from '@mui/icons-material/DeleteOutlineTwoTone'
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone'
 import VisibilityTwoToneIcon from '@mui/icons-material/VisibilityTwoTone'
+import PersonPinIcon from '@mui/icons-material/PersonPin'
 import { useEffect, useState } from 'react'
 import { UseApi } from '@hooks/useApi'
 import axios from 'axios'
 import { reloadPage } from '@helper/index'
-import { useSession, signOut } from 'next-auth/react'
+import { useGlobalContext } from '@context/authContext'
 
 export default function ShowAllPosts() {
 	const [articles, setArticles] = useState([])
+
+	// from context api
+	const { currentUser, logOut } = useGlobalContext()
+
+	const displayName = currentUser?.providerData[0]?.displayName
+	const photoURL = currentUser?.providerData[0]?.photoURL
+	const defaultImg = 'https://cdn-icons-png.flaticon.com/512/1074/1074766.png'
 
 	// fetch api on component did mount
 	useEffect(() => {
@@ -37,11 +45,6 @@ export default function ShowAllPosts() {
 		}
 	})
 
-	const { data: session } = useSession()
-
-	const image = session?.user?.image
-	const username = session?.user?.name
-
 	return (
 		<>
 			<Box
@@ -53,10 +56,12 @@ export default function ShowAllPosts() {
 					mb: 1,
 				}}
 			>
-				<IconButton title="Click to Log Out" onClick={() => signOut()}>
-					<Avatar src={image} />
+				<IconButton onClick={logOut} title='Click to Log Out'>
+					<Avatar alt='User Image' src={!photoURL ? defaultImg : photoURL} />
 				</IconButton>
-				<Typography component='h3' variant='h5' color="#ff0000">{username}</Typography>
+				<Typography component='h3' variant='h5' color='#000fff'>
+					{!displayName ? 'Unknown' : displayName}
+				</Typography>
 			</Box>
 			<TableContainer component={Paper}>
 				<Table sx={{ minWidth: 650 }} aria-label='caption table'>

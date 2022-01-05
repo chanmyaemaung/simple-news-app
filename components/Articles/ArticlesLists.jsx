@@ -33,17 +33,18 @@ export default function ArticleLists({ data, length }) {
 										variant='caption'
 										component='p'
 										noWrap={true}
+										gutterBottom
 									>
 										{title}
 									</Typography>
 									<Typography
-										variant='body2'
+										variant='body1'
 										color='#6e6e6e'
-										noWrap={true}
 										component='p'
+										textAlign={'center'}
 										sx={{ fontSize: '0.8rem' }}
 									>
-										ဆက်ဖတ်ရန် 👆🏻
+										နှိပ်ပါ 👆🏻
 									</Typography>
 								</CardContent>
 							</CardActionArea>

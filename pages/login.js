@@ -1,19 +1,21 @@
 import MainLayout from '@components/MainLayout'
 import { Box, Button } from '@mui/material'
-import { useRouter } from 'next/router'
+import GoogleIcon from '@mui/icons-material/Google'
+import { useGlobalContext } from 'context/authContext'
 
 export default function Login() {
-	const { replace } = useRouter()
+	const { signInWithGoogle } = useGlobalContext()
 
 	return (
 		<MainLayout title='Login Page'>
 			<Box sx={root}>
 				<Button
+					onClick={signInWithGoogle}
+					startIcon={<GoogleIcon />}
 					variant='outlined'
 					color='error'
-					onClick={() => replace('/api/auth/signin')}
 				>
-					Go to Login Page
+					Sign in with Google
 				</Button>
 			</Box>
 		</MainLayout>

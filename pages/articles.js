@@ -7,8 +7,8 @@ import {
 	AppBar,
 	Toolbar,
 	Typography,
-	IconButton,
 	Button,
+	IconButton,
 } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
@@ -16,19 +16,20 @@ import { useRouter } from 'next/router'
 import SearchIcon from '@mui/icons-material/Search'
 import { Search, SearchIconWrapper, StyledInputBase } from '@hooks/withSearch'
 import ArticleSkeleton from '@components/Articles/ArticleSkeleton'
-import { useSession, signOut } from 'next-auth/react'
-import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone'
 import DashboardCustomizeTwoToneIcon from '@mui/icons-material/DashboardCustomizeTwoTone'
+import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone'
+import { useGlobalContext } from 'context/authContext'
 
 // * Client Side Rendering
 export default function Articles() {
 	const [articles, setArticles] = useState([])
 	const [search, setSearch] = useState('')
 
-	// * get session info from next auth
-	const { data: session } = useSession()
-
+	// router
 	const { push } = useRouter()
+
+	// from context
+	const { logOut, currentUser } = useGlobalContext()
 
 	// * Fetching and Component Did Mount
 	useEffect(() => {
@@ -79,9 +80,9 @@ export default function Articles() {
 								onChange={handleSearch}
 							/>
 						</Search>
-						{session && (
+						{currentUser && (
 							<>
-								<IconButton onClick={() => signOut()}>
+								<IconButton onClick={logOut}>
 									<LogoutTwoToneIcon />
 								</IconButton>
 							</>
@@ -99,7 +100,7 @@ export default function Articles() {
 					{/* If there is no article yet then show Skeleton Loading */}
 					{!articles.length && <ArticleSkeleton />}
 				</Grid>
-				{session && (
+				{currentUser && (
 					<>
 						<Button
 							startIcon={<DashboardCustomizeTwoToneIcon />}
