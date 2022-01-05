@@ -15,7 +15,5 @@ module.exports = {
 		cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
 		cloudApiKey: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
 		cloudSecretKey: process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET,
-		googleClientId: process.env.NEXTAUTH_URL_GOOGLE_CLIENT_ID,
-		googleClientSecret: process.env.NEXTAUTH_URL_GOOGLE_CLIENT_SECRET,
 	},
 }
