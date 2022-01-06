@@ -21,6 +21,7 @@ import TableLists from './TableLists'
 import axios from 'axios'
 import TablePaginationActions from './TablePaginationActions'
 import { reloadPage } from '@helper/index'
+import moment from 'moment'
 
 export default function ShowAllPosts() {
 	const [page, setPage] = React.useState(0)
@@ -45,13 +46,16 @@ export default function ShowAllPosts() {
 	}, [])
 
 	// Populate data in table rows
-	const rows = articles?.map(({ _id, title, image_link, upload_img }) => {
-		return {
-			id: _id,
-			picture: !upload_img ? image_link : upload_img,
-			title: title,
+	const rows = articles?.map(
+		({ _id, title, createdAt, image_link, upload_img }) => {
+			return {
+				id: _id,
+				picture: !upload_img ? image_link : upload_img,
+				date: moment(new Date(createdAt)).fromNow(),
+				title: title,
+			}
 		}
-	})
+	)
 
 	// Avoid a layout jump when reaching the last page with empty rows.
 	const emptyRows =
@@ -91,7 +95,7 @@ export default function ShowAllPosts() {
 						{(rowsPerPage > 0
 							? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 							: rows
-						).map(({ id, picture, title }) => {
+						).map(({ id, picture, date, title }) => {
 							/// CRUD Logics will goes here
 							// click to view post
 							function viewPost() {
@@ -118,6 +122,7 @@ export default function ShowAllPosts() {
 								<TableLists
 									key={id}
 									title={title}
+									date={date}
 									picture={picture}
 									editPost={editPost}
 									deletePost={deletePost}
