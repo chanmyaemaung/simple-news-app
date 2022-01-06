@@ -59,7 +59,7 @@ export default function AddPost() {
 			})
 			setForm(initialState)
 			setLoading(false)
-			replace('/articles')
+			replace('/dashboard')
 		} catch (error) {
 			console.log(error.message)
 		}

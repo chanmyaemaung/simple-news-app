@@ -1,3 +1,6 @@
+import { createGlobalStyle } from 'styled-components'
+
+const GlobalStyle = createGlobalStyle`
 @font-face {
 	font-family: 'Pyidaungsu';
 	src: url('/fonts/Pyidaungsu.eot');
@@ -61,3 +64,6 @@ p {
 img {
 	width: 100%;
 }
+
+`
+export default GlobalStyle

@@ -7,12 +7,14 @@ export default function DashBoard() {
 	// from context api
 	const { currentUser } = useGlobalContext()
 
+	if (!currentUser) return <Login />
+
 	return (
 		<>
 			<Head>
 				<title>Dashboard</title>
 			</Head>
-			{!currentUser ? <Login /> : <DashBoardComponent />}
+			{currentUser && <DashBoardComponent />}
 		</>
 	)
 }

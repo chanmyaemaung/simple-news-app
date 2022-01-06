@@ -37,7 +37,7 @@ export default function DashboardAppBar(props) {
 							{/* Drawer */}
 							<DashboardDrawer />
 							<Typography component='div' variant='h5' textAlign='center'>
-								MM NEWS
+								{currentUser ? '' : 'Burma News'}
 							</Typography>
 							<Box sx={right}>
 								{/* Add Post */}

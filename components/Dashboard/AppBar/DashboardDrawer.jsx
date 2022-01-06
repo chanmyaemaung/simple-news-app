@@ -12,8 +12,7 @@ import { IconButton } from '@mui/material'
 import { useRouter } from 'next/router'
 
 export default function DashboardDrawer() {
-
-	const router = useRouter()
+	const { push } = useRouter()
 
 	const [state, setState] = useState({
 		left: false,
@@ -39,7 +38,7 @@ export default function DashboardDrawer() {
 			onKeyDown={toggleDrawer(anchor, false)}
 		>
 			<List>
-				<ListItem button onClick={() => router.push('/dashboard')}>
+				<ListItem button onClick={() => push('/dashboard')}>
 					<ListItemIcon>
 						<DashboardIcon />
 					</ListItemIcon>
