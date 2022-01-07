@@ -15,18 +15,16 @@ const MainLayout = ({ title, keywords, description, children }) => {
 				<meta name='description' content={description} />
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			<Container maxWidth='xs'>
-				{children}
-			</Container>
+			<Container maxWidth='xs'>{children}</Container>
 		</>
 	)
 }
 
-export default MainLayout
-
 MainLayout.defaultProps = {
-	title: 'MM NEWS APP',
+	title: 'Burma News',
 	keywords: 'myanmar news',
 	description:
 		'This is an app built with Node JS and React Libraries. Made with love in Burma.',
 }
+
+export default MainLayout

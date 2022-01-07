@@ -6,9 +6,10 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import DashboardIcon from '@mui/icons-material/Dashboard'
 import MenuIcon from '@mui/icons-material/Menu'
+import PostAddIcon from '@mui/icons-material/PostAdd'
 
 import { useState, Fragment } from 'react'
-import { IconButton } from '@mui/material'
+import { Divider, IconButton } from '@mui/material'
 import { useRouter } from 'next/router'
 
 export default function DashboardDrawer() {
@@ -38,13 +39,20 @@ export default function DashboardDrawer() {
 			onKeyDown={toggleDrawer(anchor, false)}
 		>
 			<List>
-				<ListItem button onClick={() => push('/dashboard')}>
+				<ListItem button onClick={() => push('/')}>
 					<ListItemIcon>
 						<DashboardIcon />
 					</ListItemIcon>
 					<ListItemText primary='Home' />
 				</ListItem>
-				{/* <Divider /> */}
+				<Divider />
+				<ListItem button onClick={() => push('/dashboard/add')}>
+					<ListItemIcon>
+						<PostAddIcon />
+					</ListItemIcon>
+					<ListItemText primary='Add Post' />
+				</ListItem>
+				<Divider />
 			</List>
 		</Box>
 	)

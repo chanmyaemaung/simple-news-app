@@ -8,6 +8,7 @@ import {
 	Toolbar,
 	Typography,
 	Box,
+	Tooltip,
 } from '@mui/material'
 import { root, right } from '../style'
 import DashboardDrawer from './DashboardDrawer'
@@ -41,31 +42,41 @@ export default function DashboardAppBar(props) {
 							</Typography>
 							<Box sx={right}>
 								{/* Add Post */}
-								<IconButton onClick={() => push('/dashboard')}>
-									<DashboardIcon />
-								</IconButton>
+								<Tooltip title='Dashboard' placement='left' arrow>
+									<IconButton onClick={() => push('/dashboard')}>
+										<DashboardIcon />
+									</IconButton>
+								</Tooltip>
 								{/* Add Post */}
-								<IconButton onClick={() => push('/dashboard/add')}>
-									<PostAddIcon />
-								</IconButton>
+								<Tooltip title='Add Post' placement='bottom' arrow>
+									<IconButton onClick={() => push('/dashboard/add')}>
+										<PostAddIcon />
+									</IconButton>
+								</Tooltip>
 								{/* See All Articles */}
-								<IconButton
-									onClick={() => push('/articles')}
-									sx={{ ml: 1 }}
-									color='inherit'
-								>
-									<RemoveRedEyeIcon />
-								</IconButton>
+								<Tooltip title='View All Post' placement='bottom' arrow>
+									<IconButton
+										onClick={() => push('/articles')}
+										sx={{ ml: 1 }}
+										color='inherit'
+									>
+										<RemoveRedEyeIcon />
+									</IconButton>
+								</Tooltip>
 								{/* Reload Page */}
-								<IconButton onClick={() => reloadPage()}>
-									<RefreshTwoToneIcon />
-								</IconButton>
+								<Tooltip title='Refresh Page' placement='bottom' arrow>
+									<IconButton onClick={() => reloadPage()}>
+										<RefreshTwoToneIcon />
+									</IconButton>
+								</Tooltip>
 								{/* Sign Out */}
 								{currentUser && (
 									<>
-										<IconButton onClick={logOut}>
-											<LogoutTwoToneIcon />
-										</IconButton>
+										<Tooltip title='Sign Out' placement='bottom' arrow>
+											<IconButton onClick={logOut}>
+												<LogoutTwoToneIcon />
+											</IconButton>
+										</Tooltip>
 									</>
 								)}
 							</Box>

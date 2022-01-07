@@ -12,6 +12,7 @@ import {
 	IconButton,
 	Avatar,
 	Typography,
+	Tooltip,
 } from '@mui/material'
 
 /* Custom hooks */
@@ -50,7 +51,7 @@ export default function ShowAllPosts() {
 		({ _id, title, createdAt, image_link, upload_img }) => {
 			return {
 				id: _id,
-				picture: !upload_img ? image_link : upload_img,
+				picture: upload_img || image_link || defaultImg,
 				date: moment(new Date(createdAt)).fromNow(),
 				title: title,
 			}
@@ -82,12 +83,16 @@ export default function ShowAllPosts() {
 					mb: 1,
 				}}
 			>
-				<IconButton onClick={logOut} title='Click to Log Out'>
-					<Avatar alt='User Image' src={!photoURL ? defaultImg : photoURL} />
-				</IconButton>
-				<Typography component='h3' variant='h5' color='#EE7512'>
-					{!displayName ? 'Unknown' : displayName}
-				</Typography>
+				<Tooltip title='Log Out' arrow placement='right'>
+					<IconButton onClick={logOut}>
+						<Avatar alt='User Image' src={photoURL || defaultImg} />
+					</IconButton>
+				</Tooltip>
+				<Tooltip title='Your username' arrow>
+					<Typography component='h3' variant='h5' color='#EE7512'>
+						{!displayName ? 'Unknown' : displayName}
+					</Typography>
+				</Tooltip>
 			</Box>
 			<TableContainer component={Paper}>
 				<Table sx={{ minWidth: 500 }} aria-label='custom pagination table'>
@@ -132,7 +137,7 @@ export default function ShowAllPosts() {
 						})}
 
 						{emptyRows > 0 && (
-							<TableRow style={{ height: 53 * emptyRows }}>
+							<TableRow style={{ height: 53 * emptyRows }}>	
 								<TableCell colSpan={6} />
 							</TableRow>
 						)}
