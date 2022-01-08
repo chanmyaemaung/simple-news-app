@@ -21,6 +21,7 @@ import AccessTimeFilledTwoToneIcon from '@mui/icons-material/AccessTimeFilledTwo
 import moment from 'moment'
 import { reloadPage } from '@helper/index'
 import { useGlobalContext } from '@context/authContext'
+import MyFooter from '@components/Footer'
 
 export default function Articles({ result }) {
 	const { replace } = useRouter()
@@ -128,6 +129,7 @@ export default function Articles({ result }) {
 					</CardActions>
 				</Card>
 			</Container>
+			<MyFooter />
 		</>
 	)
 }
