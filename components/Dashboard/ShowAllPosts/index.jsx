@@ -13,6 +13,7 @@ import {
 	Avatar,
 	Typography,
 	Tooltip,
+	InputBase,
 } from '@mui/material'
 
 /* Custom hooks */
@@ -28,6 +29,7 @@ export default function ShowAllPosts() {
 	const [page, setPage] = React.useState(0)
 	const [rowsPerPage, setRowsPerPage] = React.useState(5)
 	const [articles, setArticles] = React.useState([])
+	const [search, setSearch] = React.useState('')
 
 	// from context api
 	const { currentUser, logOut } = useGlobalContext()
@@ -46,8 +48,20 @@ export default function ShowAllPosts() {
 		return fetchArticles()
 	}, [])
 
+	// * Filtered Articles
+	const getFilteredArticles = (articles) => {
+		return articles.filter((article) => {
+			return article.title.toLowerCase().includes(search.toLowerCase())
+		})
+	}
+
+	// * Handle Search
+	const handleSearch = (e) => {
+		setSearch(e.currentTarget.value)
+	}
+
 	// Populate data in table rows
-	const rows = articles?.map(
+	const rows = getFilteredArticles(articles).map(
 		({ _id, title, createdAt, image_link, upload_img }) => {
 			return {
 				id: _id,
@@ -88,6 +102,13 @@ export default function ShowAllPosts() {
 						<Avatar alt='User Image' src={photoURL || defaultImg} />
 					</IconButton>
 				</Tooltip>
+				{/* Search articles */}
+				<InputBase
+					sx={{ mx: 10, flex: 1 }}
+					placeholder='Search Articles'
+					inputProps={{ 'aria-label': 'search articles' }}
+					onChange={handleSearch}
+				/>
 				<Tooltip title='Your username' arrow>
 					<Typography component='h3' variant='h5' color='#EE7512'>
 						{!displayName ? 'Unknown' : displayName}
@@ -137,7 +158,7 @@ export default function ShowAllPosts() {
 						})}
 
 						{emptyRows > 0 && (
-							<TableRow style={{ height: 53 * emptyRows }}>	
+							<TableRow style={{ height: 53 * emptyRows }}>
 								<TableCell colSpan={6} />
 							</TableRow>
 						)}
