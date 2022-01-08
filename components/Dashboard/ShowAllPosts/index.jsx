@@ -104,7 +104,7 @@ export default function ShowAllPosts() {
 				</Tooltip>
 				{/* Search articles */}
 				<InputBase
-					sx={{ mx: 10, flex: 1 }}
+					sx={{ mx: { sm: 10, xs: 0 }, flex: 1 }}
 					placeholder='Search Articles'
 					inputProps={{ 'aria-label': 'search articles' }}
 					onChange={handleSearch}
