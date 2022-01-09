@@ -24,6 +24,7 @@ import axios from 'axios'
 import TablePaginationActions from './TablePaginationActions'
 import { reloadPage } from '@helper/index'
 import moment from 'moment'
+import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 
 export default function ShowAllPosts() {
 	const [page, setPage] = React.useState(0)
@@ -85,6 +86,8 @@ export default function ShowAllPosts() {
 		setPage(0)
 	}
 
+	const clearInput = () => setSearch('')
+
 	return (
 		<>
 			{/* Show avatar and authenticated username */}
@@ -104,11 +107,22 @@ export default function ShowAllPosts() {
 				</Tooltip>
 				{/* Search articles */}
 				<InputBase
-					sx={{ mx: { sm: 10, xs: 0 }, flex: 1 }}
+					sx={{ mx: { sm: 10, xs: 1 }, flex: 1 }}
 					placeholder='Search Articles'
 					inputProps={{ 'aria-label': 'search articles' }}
 					onChange={handleSearch}
+					value={search}
 				/>
+				{/* Clear button */}
+				<IconButton
+					onClick={clearInput}
+					sx={{ p: '10px', mr: { xs: 2, sm: 5 } }}
+					aria-label='clear'
+				>
+					<Tooltip title='Clear search' arrow>
+						<HighlightOffIcon />
+					</Tooltip>
+				</IconButton>
 				<Tooltip title='Your username' arrow>
 					<Typography component='h3' variant='h5' color='#EE7512'>
 						{!displayName ? 'Unknown' : displayName}
