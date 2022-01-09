@@ -22,6 +22,7 @@ import moment from 'moment'
 import { reloadPage } from '@helper/index'
 import { useGlobalContext } from '@context/authContext'
 import MyFooter from '@components/Footer'
+import MyScrollToTop from '@components/ScrollToTop'
 
 export default function Articles({ result }) {
 	const { replace } = useRouter()
@@ -64,6 +65,7 @@ export default function Articles({ result }) {
 			<Container maxWidth={'md'}>
 				<Card sx={{ p: 1 }}>
 					<Typography
+						id='back-to-top-anchor'
 						textAlign={'center'}
 						gutterBottom
 						variant='h6'
@@ -129,6 +131,7 @@ export default function Articles({ result }) {
 					</CardActions>
 				</Card>
 			</Container>
+			<MyScrollToTop />
 			<MyFooter />
 		</>
 	)
