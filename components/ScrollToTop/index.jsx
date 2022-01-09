@@ -41,7 +41,7 @@ function ScrollTop(props) {
 				role='presentation'
 				sx={{
 					position: 'fixed',
-					bottom: currentUser ? 100 : 16,
+					bottom: currentUser ? 100 : 35,
 					right: 25,
 				}}
 			>
