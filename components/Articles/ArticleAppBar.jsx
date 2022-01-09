@@ -1,23 +1,13 @@
-import {
-	AppBar,
-	Box,
-	Toolbar,
-	Typography,
-	Button,
-	IconButton,
-} from '@mui/material'
+import { AppBar, Box, Toolbar, Typography, IconButton } from '@mui/material'
 // Import search styles
 import { Search, SearchIconWrapper, StyledInputBase } from './style'
 import { useGlobalContext } from '@context/authContext'
-import { useRouter } from 'next/router'
 // All Icons
 import SearchIcon from '@mui/icons-material/Search'
-import DashboardIcon from '@mui/icons-material/Dashboard'
 import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone'
+import MySpeedDial from '@components/SpeedDial'
 
 export default function ArticleAppBar({ handleSearch }) {
-	// destructure router
-	const { push } = useRouter()
 	// Get auth data from the context api
 	const { logOut, currentUser } = useGlobalContext()
 
@@ -26,7 +16,7 @@ export default function ArticleAppBar({ handleSearch }) {
 			<Box sx={{ flexGrow: 1 }}>
 				{/* Appbar with Search Function */}
 				<AppBar position='static' color='transparent'>
-					<Toolbar variant='dense'>
+					<Toolbar id='back-to-top-anchor' variant='dense'>
 						<Typography
 							variant='h6'
 							noWrap
@@ -59,20 +49,7 @@ export default function ArticleAppBar({ handleSearch }) {
 				</AppBar>
 			</Box>
 			{/* If user had authenticated then, will show dashboard button */}
-			{currentUser && (
-				<>
-					<Button
-						startIcon={<DashboardIcon />}
-						onClick={() => push('/dashboard')}
-						variant='contained'
-						color='info'
-						fullWidth
-						sx={{ mt: 2 }}
-					>
-						Go to Dashboard
-					</Button>
-				</>
-			)}
+			{currentUser && <MySpeedDial />}
 		</>
 	)
 }

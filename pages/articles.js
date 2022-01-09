@@ -50,6 +50,7 @@ export default function Articles() {
 				{/* If there is no article yet then show Skeleton Loading */}
 				{!articles.length && <ArticleSkeleton />}
 			</Grid>
+			{/* Footer */}
 			<MyFooter />
 		</MainLayout>
 	)

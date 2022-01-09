@@ -33,7 +33,7 @@ export default function DashboardAppBar(props) {
 			<CssBaseline />
 			<HideOnScroll {...props}>
 				<AppBar color='inherit'>
-					<Toolbar variant='dense' component='div'>
+					<Toolbar id='back-to-top-anchor' variant='dense' component='div'>
 						<Box sx={root}>
 							{/* Drawer */}
 							<DashboardDrawer />

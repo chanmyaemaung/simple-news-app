@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import { Container } from '@mui/material'
+import MyScrollToTop from '@components/ScrollToTop'
 
 const MainLayout = ({ title, keywords, description, children }) => {
 	return (
@@ -15,7 +16,10 @@ const MainLayout = ({ title, keywords, description, children }) => {
 				<meta name='description' content={description} />
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			<Container maxWidth='xs'>{children}</Container>
+			<Container maxWidth='xs'>
+				{children}
+				<MyScrollToTop />
+			</Container>
 		</>
 	)
 }
